@@ -1,4 +1,4 @@
-# calculator
+# Simple calculator made in Vue
 
 ## Project setup
 ```
