@@ -4,22 +4,22 @@
     <div class="calculator-button" @click="clear">C</div>
     <div class="calculator-button" @click="getAns">ANS</div>
     <div class="calculator-button" @click="deleteDigit">DEL</div>
-    <div class="calculator-button">÷</div>
+    <div class="calculator-button" @click="addOperator('/')">÷</div>
     <div class="calculator-button" @click="addDigit('7')">7</div>
     <div class="calculator-button" @click="addDigit('8')">8</div>
     <div class="calculator-button" @click="addDigit('9')">9</div>
-    <div class="calculator-button">×</div>
+    <div class="calculator-button" @click="addOperator('*')">×</div>
     <div class="calculator-button" @click="addDigit('4')">4</div>
     <div class="calculator-button" @click="addDigit('5')">5</div>
     <div class="calculator-button" @click="addDigit('6')">6</div>
-    <div class="calculator-button">-</div>
+    <div class="calculator-button" @click="addOperator('-')">-</div>
     <div class="calculator-button" @click="addDigit('1')">1</div>
     <div class="calculator-button" @click="addDigit('2')">2</div>
     <div class="calculator-button" @click="addDigit('3')">3</div>
-    <div class="calculator-button">+</div>
+    <div class="calculator-button" @click="addOperator('+')">+</div>
     <div class="calculator-button" id="zero" @click="addDigit('0')">0</div>
     <div class="calculator-button" @click="addComma">.</div>
-    <div class="calculator-button">=</div>
+    <div class="calculator-button" @click="evaluate">=</div>
   </div>
 
   <div class="log">Log:</div>
@@ -30,31 +30,52 @@ export default {
   data() {
     return {
       number: '32131',
-      ans: '3'
+      ans: '3',
+      currentOperator: '',
+      previousNumber: '0',
     }
   },
   methods: {
     clear() {
       this.number = '';
+      this.previousNumber = '';
+      this.currentOperator = '';
     },
+
     addDigit(num) {
       this.number = this.number + num;
     },
+
     addComma() {
       if (!this.number.includes('.')){
         if (this.number === '' || this.number === '0') this.number = '0.'
         else this.number = this.number + '.';
       }
     },
+
     deleteDigit() {
       this.number = this.number.slice(0, -1);
     },
+
     getAns(){
       this.number = this.ans;
     },
 
+    addOperator(operator) {
+      this.operator = operator;
+      this.previousNumber = this.number;
+      this.number = '';
+
+    },
+
     evaluate() {
-      //oppdater this.ans etter evaluation
+      const temp = this.number;
+      this.number = eval(this.previousNumber + this.operator + this.number);
+      this.ans = this.number;
+      this.previousNumber = temp;
+
+      
+      //fiks så 2+4 = 6 = 10 = 14 = 18 etc.
     }
   }
 }
