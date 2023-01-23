@@ -1,6 +1,7 @@
 <template>
   <div class="calculator">
     <div class="display">{{ number || '0'}}</div>
+    <!-- kan være buttons? -->
     <div class="calculator-button" @click="clear">C</div>
     <div class="calculator-button" @click="getAns">ANS</div>
     <div class="calculator-button" @click="deleteDigit">DEL</div>
@@ -118,6 +119,15 @@ div {
 .calculator-button {
   border:1px #363959 solid;
 
+}
+
+.calculator-button:hover  {
+  border:1px #999 solid;
+
+}
+
+.calculator-button:active {
+  background-color: rgb(97, 97, 200);
 }
 
 #zero {
