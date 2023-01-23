@@ -1,37 +1,42 @@
 <template>
   <div class="calculator">
-    <div class="display">{{ number || '0'}}</div>
-    <!-- kan være buttons? -->
-    <div class="calculator-button" @click="clear">C</div>
-    <div class="calculator-button" @click="getAns">ANS</div>
-    <div class="calculator-button" @click="deleteDigit">DEL</div>
-    <div class="calculator-button" @click="addOperator('/')">÷</div>
-    <div class="calculator-button" @click="addDigit('7')">7</div>
-    <div class="calculator-button" @click="addDigit('8')">8</div>
-    <div class="calculator-button" @click="addDigit('9')">9</div>
-    <div class="calculator-button" @click="addOperator('*')">×</div>
-    <div class="calculator-button" @click="addDigit('4')">4</div>
-    <div class="calculator-button" @click="addDigit('5')">5</div>
-    <div class="calculator-button" @click="addDigit('6')">6</div>
-    <div class="calculator-button" @click="addOperator('-')">-</div>
-    <div class="calculator-button" @click="addDigit('1')">1</div>
-    <div class="calculator-button" @click="addDigit('2')">2</div>
-    <div class="calculator-button" @click="addDigit('3')">3</div>
-    <div class="calculator-button" @click="addOperator('+')">+</div>
-    <div class="calculator-button" id="zero" @click="addDigit('0')">0</div>
-    <div class="calculator-button" @click="addComma">.</div>
-    <div class="calculator-button" @click="evaluate">=</div>
+      <div class="controls">
+      <div class="display">{{ number || '0'}}</div>
+      <button class="calculator-button" @click="clear">C</button>
+      <button class="calculator-button" @click="getAns">ANS</button>
+      <button class="calculator-button" @click="deleteDigit">DEL</button>
+      <button class="calculator-button" @click="addOperator('/')">÷</button>
+      <button class="calculator-button" @click="addDigit('7')">7</button>
+      <button class="calculator-button" @click="addDigit('8')">8</button>
+      <button class="calculator-button" @click="addDigit('9')">9</button>
+      <button class="calculator-button" @click="addOperator('*')">×</button>
+      <button class="calculator-button" @click="addDigit('4')">4</button>
+      <button class="calculator-button" @click="addDigit('5')">5</button>
+      <button class="calculator-button" @click="addDigit('6')">6</button>
+      <button class="calculator-button" @click="addOperator('-')">-</button>
+      <button class="calculator-button" @click="addDigit('1')">1</button>
+      <button class="calculator-button" @click="addDigit('2')">2</button>
+      <button class="calculator-button" @click="addDigit('3')">3</button>
+      <button class="calculator-button" @click="addOperator('+')">+</button>
+      <button class="calculator-button" id="zero" @click="addDigit('0')">0</button>
+      <button class="calculator-button" @click="addComma">.</button>
+      <button class="calculator-button" @click="evaluate">=</button>
+    </div>
+
+
+    <div class="log"></div>
   </div>
 
-  <div class="log">Log:</div>
+
+  
 </template>
 
 <script>
 export default {
   data() {
     return {
-      number: '32131',
-      ans: '3',
+      number: '',
+      ans: '',
       currentOperator: '',
       previousNumber: '0',
     }
@@ -83,22 +88,35 @@ export default {
 </script>
 
 <style scoped>
-.calculator{
-  width: 400px;
-  margin: 0 auto;
-  font-size: 40px;
+.controls{
+
+  max-width: 400px;
+  min-width: 50%;
+  font-size: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(50px, auto);
 
 }
 
+.calculator {
+  display:flex;
+  flex-direction: row;
+  margin: 0 auto;
+  max-width: 800px;
+  justify-content: center;
+}
+
+
+ 
 .display {
   text-align: right;
   padding-right: 2%;
   grid-column: 1 / 5;
   background-color: rgb(97, 97, 200);
   background-color: #202340;
+  font-size: 40px;
+
 }
 
 h1 {
@@ -110,14 +128,19 @@ div {
 }
 
 .log {
+  width: 200px;
   text-align: left;
   padding-left: 2%;
   background-color: #202340;
+  
 
 }
 
 .calculator-button {
   border:1px #363959 solid;
+  background-color: #0f1126;
+  color:white;
+  font-size: 30px;
 
 }
 
@@ -134,5 +157,19 @@ div {
   grid-column: 1 / 3;
 }
 
+
+@media only screen and (max-width: 768px) {
+  .calculator {
+    flex-direction: column;
+    width:100%;
+  }
+  .log {
+    min-height: 200px;
+    margin: 0;
+    min-width: 50%;
+
+  }
+
+}
 
 </style>
