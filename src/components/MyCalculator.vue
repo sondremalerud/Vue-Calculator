@@ -127,7 +127,7 @@ div {
 }
 
 .calculator-button:active {
-  background-color: rgb(97, 97, 200);
+  background-color: #5922a5;
 }
 
 #zero {
