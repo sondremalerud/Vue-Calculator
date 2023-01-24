@@ -24,7 +24,13 @@
     </div>
 
 
-    <div class="log"></div>
+    <div class="log">
+      <ul>
+        <li v-for="item in logItems" v-bind:key="item" type="kebab">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </div>
 
 
@@ -39,6 +45,7 @@ export default {
       ans: '',
       currentOperator: '',
       previousNumber: '0',
+      logItems: []
     }
   },
   methods: {
@@ -77,6 +84,8 @@ export default {
     evaluate() {
       const temp = this.number;
       this.number = eval(this.previousNumber + this.operator + this.number);
+
+      this.logItems.unshift(this.previousNumber + ' ' + this.operator + ' ' + temp + ' = ' + this.number);
       this.ans = this.number;
       this.previousNumber = temp;
 
@@ -130,10 +139,7 @@ div {
 .log {
   width: 200px;
   text-align: left;
-  padding-left: 2%;
   background-color: #202340;
-  
-
 }
 
 .calculator-button {
@@ -170,6 +176,18 @@ div {
 
   }
 
+
+
 }
+
+.log ul li {
+  list-style-type: none;
+}
+
+.log ul {
+  padding-top: 17%;
+  padding-left: 2%;
+}
+
 
 </style>
