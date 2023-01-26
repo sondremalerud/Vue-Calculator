@@ -87,10 +87,7 @@ export default {
 
       this.logItems.unshift(this.previousNumber + ' ' + this.operator + ' ' + temp + ' = ' + this.number);
       this.ans = this.number;
-      this.previousNumber = temp;
-
-      
-      //fiks så 2+4 = 6 = 10 = 14 = 18 etc.
+      this.previousNumber = temp;      
     }
   }
 }
@@ -112,8 +109,8 @@ export default {
   display:flex;
   flex-direction: row;
   margin: 0 auto;
-  max-width: 800px;
   justify-content: center;
+  max-width: 800px;
 }
 
 
@@ -140,6 +137,14 @@ div {
   width: 200px;
   text-align: left;
   background-color: #202340;
+  overflow:scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  align-self: flex-start;
+  height: 305px;
+
+  
 }
 
 .calculator-button {
@@ -163,30 +168,33 @@ div {
   grid-column: 1 / 3;
 }
 
-
-@media only screen and (max-width: 768px) {
-  .calculator {
-    flex-direction: column;
-    width:100%;
-  }
-  .log {
-    min-height: 200px;
-    margin: 0;
-    min-width: 50%;
-
-  }
-
-
-
-}
-
 .log ul li {
   list-style-type: none;
 }
 
 .log ul {
-  padding-top: 17%;
+  padding-top: 20%;
   padding-left: 2%;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .calculator {
+    flex-direction: column;
+    width:100%;
+
+    justify-content: center;
+  }
+  .log {
+    width:400px;
+    min-height: 200px;
+    margin: 0;
+
+  }
+
+  .log ul {
+    padding-top:0%;
+  }
 }
 
 
