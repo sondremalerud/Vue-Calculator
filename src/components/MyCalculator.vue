@@ -67,7 +67,7 @@ export default {
     },
 
     deleteDigit() {
-      this.number = this.number.slice(0, -1);
+      this.number = this.number.toString().slice(0, -1);
     },
 
     getAns(){
