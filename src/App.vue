@@ -1,17 +1,12 @@
 <template>
-  <MyCalculator msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Calculator</router-link> |
+      <router-link to="/ContactForms">Contact forms</router-link>
+    </div>
+    <router-view />
+  </div>
 </template>
-
-<script>
-import MyCalculator from './components/MyCalculator.vue'
-
-export default {
-  name: 'App',
-  components: {
-    MyCalculator
-  }
-}
-</script>
 
 <style>
 #app {
@@ -20,11 +15,24 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   background-color: #0f1126;
 }
 
 body {
   background-color: #0f1126;
 }
+
+#nav {
+  padding:30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: white;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+
 </style>
