@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "formName": "Sondre Malerud",
+      "email": "sondrmal@stud.ntnu.no",
+      "message": "YO!!!!!"
+    },
+    {
+      "formName": "fdsafsda",
+      "email": "fdsafsda@gmail.com",
+      "message": "fdsfsafasd",
+      "id": 2
+    },
+    {
+      "formName": "test",
+      "email": "test@test.com",
+      "message": "test teteststst",
+      "id": 3
+    }
+  ]
+}
