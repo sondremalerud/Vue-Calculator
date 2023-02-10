@@ -56,7 +56,15 @@ export default {
     },
     methods: {
         sendForm() {
-            // Will handle form submission
+            axios.post('https://my-json-server.typicode.com/sondremalerud/Vue-Calculator/posts',
+            this.form
+            )
+            .then(function (response) {
+                console.log('Response', response)
+            })
+            .catch(function (err) {
+                console.log('Error', err)
+            })
         }
     }
 }
