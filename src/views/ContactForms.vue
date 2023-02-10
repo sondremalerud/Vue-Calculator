@@ -3,6 +3,7 @@
 
     
         <h1>123 🧌</h1>
+        <form @submit.prevent="sendForm">
         
             
             <BaseInput
@@ -26,7 +27,8 @@
         
             <textarea name="Message" id="message" cols="30" rows="10"></textarea>
 
-            <button>Submit</button>
+            <button type="submit">Submit</button>
+        </form>
 
         
 
@@ -38,7 +40,7 @@
 </template>
 
 <script>
-import BaseInput from "@/components/BaseInput.vue";
+import axios from 'axios'
 
 
 export default {
@@ -52,8 +54,10 @@ export default {
             }
         }
     },
-    components: {
-        BaseInput
+    methods: {
+        sendForm() {
+            // Will handle form submission
+        }
     }
 }
 </script>
