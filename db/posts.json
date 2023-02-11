@@ -59,6 +59,18 @@
       "email": "hei@hei.no",
       "message": "Hei! :)",
       "id": 10
+    },
+    {
+      "formName": "fdsa",
+      "email": "fdsa",
+      "message": "fdsa",
+      "id": 11
+    },
+    {
+      "formName": "test",
+      "email": "hei",
+      "message": "heii",
+      "id": 12
     }
   ]
 }

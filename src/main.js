@@ -17,11 +17,11 @@ app.mount('#app');
 
 // automatically imports components
 requireComponent.keys().forEach(fileName => {
-const componentConfig = requireComponent(fileName)
+    const componentConfig = requireComponent(fileName)
 
-const componentName = upperFirst(
-    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
-)
+    const componentName = upperFirst(
+        camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
+    )
 
-app.component(componentName, componentConfig.default || componentConfig)
+    app.component(componentName, componentConfig.default || componentConfig)
 })
