@@ -2,32 +2,38 @@
     <div class="contact-form">
 
     
-        <h1>123 🧌</h1>
+
+
         <form @submit.prevent="sendForm">
-        
+            <fieldset>
+
+                <legend>123 🧌</legend>
             
-            <BaseInput
-                v-model="form.formName"
-                label="Name"
-                type="text"
-            />
+                <BaseInput
+                    v-model="form.formName"
+                    label="Name"
+                    type="text"
+                />
 
-            <BaseInput
-                v-model="form.email"
-                label="Email"
-                type="text"
-            />
+                <BaseInput
+                    v-model="form.email"
+                    label="Email"
+                    type="email"
+                />
 
-            <BaseInput
-                v-model="form.message"
-                label="Message"
-                type="text"
-                id="message"
-            />
-        
-            <textarea name="Message" id="message" cols="30" rows="10"></textarea>
+                <BaseInput
+                    v-model="form.message"
+                    label="Message"
+                    type="text"
+                    id="message"
+                />
+            
+                <textarea name="Message" id="message" cols="30" rows="10"></textarea>
 
-            <button type="submit">Submit</button>
+                <button type="submit">Submit</button>
+
+            </fieldset>
+
         </form>
 
         
@@ -41,6 +47,8 @@
 
 <script>
 import axios from 'axios'
+import { useField } from 'vee-validate'
+
 
 
 export default {
@@ -51,7 +59,7 @@ export default {
                 formName: "",
                 email: "",
                 message: ""
-            }
+            },
         }
     },
     methods: {
@@ -92,6 +100,18 @@ export default {
     #message {
         resize: both;
 
+    }
+
+    fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    legend {
+        font-size: 28px;
+        font-weight: 700;
+        margin-top: 20px;
     }
 
 
