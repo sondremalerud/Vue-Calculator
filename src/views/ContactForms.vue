@@ -5,25 +5,35 @@
         <form @submit.prevent="sendForm">
             <fieldset>
 
-                <legend>123 🧌</legend>
+                <legend>Contact us!<br><br></legend>
+                
             
                 <BaseInput
                     v-model="form.formName"
                     label="Name"
                     type="text"
-                    required
+                    @input="updateFormName"
+                    
                 />
+                <p class="errorMessage"> {{ formNameError }} </p>
+                
 
                 <BaseInput
                     v-model="form.email"
                     label="Email"
                     type="email"
-                    required
+                    @input="updateEmail"
+                    
                 />
+                <p class="errorMessage"> {{ emailError }} </p>
 
 
-                <label>Message</label>
-                <textarea name="Message" id="message" cols="30" rows="10" v-model="form.message"></textarea>
+
+                <div class="message-box">
+                    <label>Message</label>
+                    <textarea name="Message" v-model="form.message" placeholder="Enter a message"></textarea>
+                </div>
+
 
                 <button type="submit" :disabled="!isValid">Submit</button>
 
@@ -42,6 +52,7 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 
 export default {
@@ -50,8 +61,11 @@ export default {
         return {
             form: {
                 formName: "",
+                formNameError: "",
                 email: "",
-                message: ""
+                emailError: "",
+                message: "",
+                messageError: ""
             },
         }
     },
@@ -63,71 +77,61 @@ export default {
             )
             .then(function (response) {
                 console.log('Response', response)
+                alert("Success!")
             })
             .catch(function (err) {
                 console.log('Error', err)
+                alert("Something went wrong!")
             })
+            this.form.message = "";
+
         },
         validateEmail() {
         
             if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(this.form.email)) {
+                this.emailError = ""
                 return true;
             } else {
-                console.log("truuuue");
+                this.emailError = "Enter a valid email address"
                 return false;
             }
         },
         validateName() {
             const arr = this.form.formName.split(" ");
             if (arr.length > 1 && arr[1]) {
-                console.log("ye")
+                this.formNameError = "";
                 return true;
             }
+            this.formNameError = "Enter your full name";
             return false;
         },
-/*         validate() {
-            this.v$.$validate();
-            if (!this.v$.$error) this.$refs['submitBtn'].disabled = false;
-            else {
-                this.$refs['submitBtn'].btnIsDisabled = true;
-                alert('kebba')
-
-            }
-        } */
+        updateFormName(e) {
+            this.$store.commit('UPDATE_FORM_NAME', e.target.value)
+            this.validateName()
+            
+        },
+        updateEmail(e) {
+            this.$store.commit('UPDATE_EMAIL', e.target.value)
+            this.validateEmail()
+            
+        }
 
     },
     computed: {
         isValid () {
-            //return this.form.formName && this.form.email && this.form.message;
-
             return (this.validateEmail() && this.validateName() && this.form.message);
-        }
+        },
+        ...mapState({
+            formName: state => state.form.formName
+        }),
+        
+    },
+    created() {
+        this.form.formName = this.$store.state.form.formName;
+        this.form.email = this.$store.state.form.email;
     }
-}
 
-
-
-
-    
-    
-
-/* 
-        const email = useField('email', function (value) {
-            if (!value) return 'This field is required'
-
-            const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            if (!regex.test(String(value).toLowerCase())) {
-                return 'Please enter a valid email address'
-            }
-
-            return true
-        })
-
-        const formName = useField('formName', function (value) {
-            if (!value) return 'This field is required'
-            if (!value.split(" ") > 1) return 'Please enter your full name'
-            return true
-        }) */
+}   
 
 </script>
 
@@ -175,6 +179,46 @@ export default {
         margin-top: 20px;
         margin: 0 auto;
     }
+
+    .errorMessage {
+        color: rgb(154, 154, 252);
+        color: #e94893;
+        font-size: 15px;
+        text-align: left;
+        padding-left: 3%;
+    }
+
+    textarea {
+        background-color:#202340;
+        border: 1px #363959 solid;
+        border-radius: 15px;
+        padding-left: 3%;
+        width: 100%;
+        height: 100px;
+        color:white;
+
+
+        font-size: 14px;
+
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    label {
+       
+        text-align: left;
+        margin-bottom: 2%;
+        margin-left: 3%;
+
+        
+    }
+
+    .message-box {
+        text-align: left;
+        width: 100%;
+    }
+
 
 
 </style>
