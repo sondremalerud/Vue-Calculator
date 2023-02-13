@@ -1,9 +1,9 @@
 <template>
   <div class="calculator">
     <div class="controls">
-      <div class="display">{{ number || "0" }}</div>
-      <button class="calculator-button" @click="clear">C</button>
-      <button class="calculator-button" @click="getAns">ANS</button>
+      <div class="display" id="display">{{ number || "0" }}</div>
+      <button class="calculator-button" id="btn-clear" @click="clear">C</button>
+      <button class="calculator-button" id="btn-ans" @click="getAns">ANS</button>
       <button class="calculator-button" @click="deleteDigit">DEL</button>
       <button class="calculator-button" @click="addOperator('/')">÷</button>
       <button class="calculator-button" @click="addDigit('7')">7</button>
@@ -14,18 +14,18 @@
       <button class="calculator-button" @click="addDigit('5')">5</button>
       <button class="calculator-button" @click="addDigit('6')">6</button>
       <button class="calculator-button" @click="addOperator('-')">-</button>
-      <button class="calculator-button" @click="addDigit('1')">1</button>
+      <button class="calculator-button" id="btn-1" @click="addDigit('1')">1</button>
       <button class="calculator-button" @click="addDigit('2')">2</button>
       <button class="calculator-button" @click="addDigit('3')">3</button>
-      <button class="calculator-button" @click="addOperator('+')">+</button>
+      <button class="calculator-button" id="btn-plus" @click="addOperator('+')">+</button>
       <button class="calculator-button" id="zero" @click="addDigit('0')">
         0
       </button>
       <button class="calculator-button" @click="addComma">.</button>
-      <button class="calculator-button" @click="evaluate">=</button>
+      <button class="calculator-button" id="btn-evaluate" @click="evaluate">=</button>
     </div>
 
-    <div class="log">
+    <div class="log" id="log">
       <ul>
         <li v-for="item in logItems" v-bind:key="item" type="kebab">
           {{ item }}
