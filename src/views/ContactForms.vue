@@ -6,48 +6,41 @@
             <fieldset>
 
                 <legend>Contact us!<br><br></legend>
-                
             
                 <BaseInput
                     v-model="form.formName"
                     label="Name"
                     type="text"
                     @input="updateFormName"
+                    id="form-name"
                     
                 />
                 <p class="errorMessage"> {{ formNameError }} </p>
                 
-
                 <BaseInput
                     v-model="form.email"
                     label="Email"
                     type="email"
                     @input="updateEmail"
+                    id="email"
                     
                 />
                 <p class="errorMessage"> {{ emailError }} </p>
 
-
-
                 <div class="message-box">
                     <label>Message</label>
-                    <textarea name="Message" v-model="form.message" placeholder="Enter a message"></textarea>
+                    <textarea name="Message" v-model="form.message" placeholder="Enter a message" id="message"></textarea>
                 </div>
 
-
-                <button type="submit" :disabled="!isValid">Submit</button>
+                <button type="submit" :disabled="!isValid" id="btn-submit">Submit</button>
+                <p class="feedbackMessage"> {{feedback}}</p>
 
             </fieldset>
 
         </form>
-
-        
-
     </div>
 
     
-
-
 </template>
 
 <script>
@@ -68,7 +61,8 @@ export default {
             },
             formNameError: "",
             emailError: "",
-            messageError: ""
+            messageError: "",
+            feedback: ""
         }
     },
 
@@ -77,13 +71,13 @@ export default {
             axios.post('http://localhost:3000/posts',
             this.form
             )
-            .then(function (response) {
+            .then(response => {
                 console.log('Response', response)
-                alert("Success!")
+                this.feedback = "✓ Form submitted";
             })
-            .catch(function (err) {
+            .catch(err => {
                 console.log('Error', err)
-                alert("Something went wrong!")
+                this.feedback = "✖ Something went wrong!";
             })
             this.form.message = "";
 
@@ -114,14 +108,14 @@ export default {
             this.$store.commit('UPDATE_EMAIL', e.target.value)
             if (this.validateEmail()) this.emailError = ""
             else this.emailError = "Enter a valid email address"
-        }
+        },
+
 
     },
     computed: {
         isValid () {
             return (this.validateEmail() && this.validateName() && this.form.message);
-        },
-        
+        }        
     },
     created() {
         this.form.formName = this.$store.state.form.formName;
@@ -178,11 +172,18 @@ export default {
     }
 
     .errorMessage {
-        color: rgb(154, 154, 252);
         color: #e94893;
         font-size: 15px;
         text-align: left;
         padding-left: 3%;
+    }
+
+    .feedbackMessage {      
+        color: #48e96b;
+        font-size: 18px;
+        text-align: left;
+        padding-left: 3%;
+
     }
 
     textarea {
@@ -193,7 +194,7 @@ export default {
         width: 100%;
         height: 100px;
         color:white;
-
+                
 
         font-size: 14px;
 
@@ -214,8 +215,32 @@ export default {
     .message-box {
         text-align: left;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+    
     }
 
+    button {
+        margin-top: 20px;
+        border: 1px #363959 solid;
+        background-color:#202340;
+        color: white;
+        border-radius: 15px;
+        font-size: 16px;
+        width: 100px;
+        height: 30px;
+
+    }
+
+    button:hover:enabled {
+        border: 1px #999 solid;
+    }
+
+    button:disabled {
+        opacity: 0.5;
+
+    }
 
 
 </style>
