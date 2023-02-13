@@ -53,6 +53,8 @@
 <script>
 import axios from 'axios'
 import { mapState } from 'vuex'
+import BaseInput from '/src/components/BaseInput.vue'
+ 
 
 
 export default {
@@ -61,12 +63,12 @@ export default {
         return {
             form: {
                 formName: "",
-                formNameError: "",
                 email: "",
-                emailError: "",
                 message: "",
-                messageError: ""
             },
+            formNameError: "",
+            emailError: "",
+            messageError: ""
         }
     },
 
@@ -89,31 +91,29 @@ export default {
         validateEmail() {
         
             if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(this.form.email)) {
-                this.emailError = ""
                 return true;
             } else {
-                this.emailError = "Enter a valid email address"
                 return false;
             }
         },
         validateName() {
             const arr = this.form.formName.split(" ");
             if (arr.length > 1 && arr[1]) {
-                this.formNameError = "";
+                
                 return true;
             }
-            this.formNameError = "Enter your full name";
             return false;
         },
         updateFormName(e) {
             this.$store.commit('UPDATE_FORM_NAME', e.target.value)
-            this.validateName()
+            if (this.validateName()) this.formNameError = "";
+            else this.formNameError = "Enter your full name";
             
         },
         updateEmail(e) {
             this.$store.commit('UPDATE_EMAIL', e.target.value)
-            this.validateEmail()
-            
+            if (this.validateEmail()) this.emailError = ""
+            else this.emailError = "Enter a valid email address"
         }
 
     },
@@ -121,9 +121,6 @@ export default {
         isValid () {
             return (this.validateEmail() && this.validateName() && this.form.message);
         },
-        ...mapState({
-            formName: state => state.form.formName
-        }),
         
     },
     created() {
