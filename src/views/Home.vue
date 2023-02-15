@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <br>
         <MyCalculator />
         
     </div>
