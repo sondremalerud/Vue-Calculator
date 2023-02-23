@@ -84,31 +84,34 @@ export default {
     evaluate() {
       const temp = this.number;
       // this.number = eval(this.previousNumber + this.operator + this.number);
-      if(this.operator === "+") axios.post("http://localhost:8888/calculations",
+/*      if(this.operator === "+") axios.post("http://localhost:8888/calculations",
           "expression=" + (this.previousNumber + " %2B " + this.number))
           .then(response => {
             this.number = response.data
           })
           .catch(err => {
             console.log('Error', err)
-          })
-      else axios.post("http://localhost:8888/calculations",
-          "expression=" + (this.previousNumber + " " + this.operator + " " + temp))
+          })*/
+      axios.post("http://localhost:8888/calculations",
+        "expression=" + encodeURIComponent(this.previousNumber + " " + this.operator + " " + temp))
           .then(response => {
             this.number = response.data
+            this.logItems.unshift(
+                this.previousNumber +
+                " " +
+                this.operator +
+                " " +
+                temp +
+                " = " +
+                this.number
+            );
+            this.ans = this.number;
+            this.previousNumber = temp;
           })
-
-      this.logItems.unshift(
-        this.previousNumber +
-          " " +
-          this.operator +
-          " " +
-          temp +
-          " = " +
-          this.number
-      );
-      this.ans = this.number;
-      this.previousNumber = temp;
+          .catch(err => {
+            console.log('Error', err)
+            this.number = "Error"
+          })
     },
   },
 };
