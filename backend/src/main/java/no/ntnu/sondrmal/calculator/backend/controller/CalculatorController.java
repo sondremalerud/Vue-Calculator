@@ -31,10 +31,16 @@ public class CalculatorController {
     Logger logger = LoggerFactory.getLogger(CalculatorController.class);
 
     @PostMapping("/calculations")
-    public ResponseEntity calculateExpresssion(@RequestParam("expression") String expression) {
+    public ResponseEntity calculateExpresssion(@RequestParam("expression") String expression, @RequestParam("username") String username) {
         logger.info("Equation received: " + expression);
         String answer = this.service.evaluate(expression);
         logger.info("Answer: " + answer);
+
+        if (userRepository.findByUsername(username) == null) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+
+        logger.info("Saving equation to database for user " + username);
+        equationRepository.save(new Equation(username, expression, answer));
+
         return new ResponseEntity(answer, HttpStatus.OK);
     }
 

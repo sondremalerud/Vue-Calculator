@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface EquationRepository extends JpaRepository<Equation, Long> {
     List<Equation> findByUsername(String username);
-
+    
 }
+

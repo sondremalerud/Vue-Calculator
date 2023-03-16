@@ -4,11 +4,10 @@
         <BaseInput
             v-model="username"
             label="Username"
-            @input="updateUsername"
+            id="login-field"
         />
-
-        <button>Log in</button>
-
+        <p class="errorMessage"> {{ errorFeedback }}</p>
+        <button @click="login">Log in</button>
 
     </div>
 
@@ -18,15 +17,38 @@
 </template>
 
 <script>
+import axios from 'axios'
+import router from "../router/index.js";
 
 export default {
     name: "LoginPage",
     data() {
         return {
             username: "",
-            
+            errorFeedback: "",
         }
-    }
+    },
+  methods: {
+      login() {
+        let input = document.getElementById("login-field");
+
+        axios.get('http://localhost:8888/users?username=' + this.username)
+            .then(response => {
+              console.log("yes")
+              this.$store.commit('UPDATE_USERNAME', response.data)
+              this.username = ""
+              this.errorFeedback = ""
+              router.push('/')
+            })
+            .catch(err => {
+              console.log('Could not login')
+              this.errorFeedback = "Could not log in, try again"
+            })
+
+      }
+
+
+  }
 }
 
 </script>
@@ -70,6 +92,21 @@ export default {
         font-weight: 700;
         margin-top: 20px;
         margin: 0 auto;
+    }
+
+    .errorMessage {
+      color: #e94893;
+      font-size: 15px;
+      text-align: left;
+      padding-left: 3%;
+    }
+
+    .loginMessage {
+      color: #48e96b;
+      font-size: 15px;
+      text-align: left;
+      padding-left: 3%;
+
     }
 
 

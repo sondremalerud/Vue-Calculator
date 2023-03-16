@@ -93,7 +93,8 @@ export default {
             console.log('Error', err)
           })*/
       axios.post("http://localhost:8888/calculations",
-        "expression=" + encodeURIComponent(this.previousNumber + " " + this.operator + " " + temp))
+        "expression=" + encodeURIComponent(this.previousNumber + " " + this.operator + " " + temp) + "&username=" + this.$store.state.username
+      )
           .then(response => {
             this.number = response.data
             this.logItems.unshift(
@@ -114,6 +115,19 @@ export default {
           })
     },
   },
+
+  mounted() {
+    axios.get("http://localhost:8888/equations?username=" + this.$store.state.username)
+        .then(response => {
+          let responseDataString = response.data
+
+          this.logItems = responseDataString.map(r => (r.expression + " = " + r.answer))
+
+        })
+        .catch(err => {
+          console.log("Error", err);
+        })
+  }
 };
 </script>
 

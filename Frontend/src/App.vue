@@ -5,7 +5,7 @@
       <router-link to="/ContactForms">Contact forms</router-link> |
       <router-link to="/LoginPage">Login</router-link>
     </div>
-    <div id="current-login"><p>Currently logged in as: {{ username }}</p></div>
+    <div id="current-login"><p>Currently logged in as: {{ this.$store.state.username }}</p></div>
     <router-view />
   </div>  
 </template>
@@ -22,7 +22,7 @@ export default {
   },
 
   created() {
-      this.username = this.$store.state.username;
+      //this.username = this.$store.state.username;
   }
 
 }
