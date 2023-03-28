@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import no.ntnu.sondrmal.calculator.backend.controller.CalculatorController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

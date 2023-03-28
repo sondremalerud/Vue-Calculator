@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div v-if=!this.isLoggedIn class="login">
         <legend>Welcome back<br><br></legend>
         <BaseInput
             v-model="username"
@@ -10,10 +10,11 @@
         <button @click="login">Log in</button>
 
     </div>
+    <div v-else class="login">
+        <legend>Currently logged in<br><br></legend>
+        <button @click="logOut" class="logout">Log out</button>
 
-
-
-
+    </div>
 </template>
 
 <script>
@@ -29,28 +30,38 @@ export default {
         return {
             username: "",
             errorFeedback: "",
+            isLoggedIn: false,
         }
     },
-  methods: {
-      login() {
-        let input = document.getElementById("login-field");
+    mounted() {
+        if (this.$store.state.username.length > 0){
+            this.isLoggedIn = true;
+        } else {
+            this.isLoggedIn = false;
+        }
+    },
 
-        axios.get('http://localhost:8888/users?username=' + this.username)
-            .then(response => {
-              console.log("yes")
-              this.$store.commit('UPDATE_USERNAME', response.data)
-              this.username = ""
-              this.errorFeedback = ""
-              router.push('/')
-            })
-            .catch(err => {
-              console.log('Could not login')
-              this.errorFeedback = "Could not log in, try again"
-            })
-      },
+    methods: {
+        login() {
+            let input = document.getElementById("login-field");
 
-
-
+            axios.get('http://localhost:8888/users?username=' + this.username)
+                .then(response => {
+                console.log(response.data)
+                this.$store.commit('UPDATE_USERNAME', response.data)
+                this.username = ""
+                this.errorFeedback = ""
+                router.push('/')
+                })
+                .catch(err => {
+                console.log('Could not login')
+                this.errorFeedback = "Could not log in, try again"
+                })
+        },
+        logOut() {
+            this.$store.commit("UPDATE_USERNAME", "");
+            this.isLoggedIn = false;
+        }
     }
 }
 

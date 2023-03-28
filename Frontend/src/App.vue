@@ -5,7 +5,6 @@
       <router-link to="/ContactForms">Contact forms</router-link> |
       <router-link to="/LoginPage">Login</router-link>
     </div>
-    <div id="current-login"><p><!--Currently logged in as: {{ this.$store.state.username }}--></p></div>
     <router-view />
   </div>  
 </template>
@@ -20,10 +19,6 @@ export default {
         username: "",
       }
   },
-
-  created() {
-      //this.username = this.$store.state.username;
-  }
 
 }
 
@@ -65,6 +60,22 @@ body {
   padding-top: 22px;
   color: white;
 
+}
+
+button {
+        margin-top: 20px;
+        border: 1px #363959 solid;
+        background-color:#202340;
+        color: white;
+        border-radius: 15px;
+        font-size: 16px;
+        width: 100px;
+        height: 30px;
+
+    }
+
+button:hover:enabled {
+    border: 1px #999 solid;
 }
 
 </style>

@@ -1,12 +1,18 @@
 import { createStore } from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
+    plugins: [createPersistedState()],
     state: {
         form: {
             formName: "",
             email: "",
         },
-        username: "Guest"
+        username: "Guest",
+        token: ""
+    },
+    persist: {
+        storage: sessionStorage
     },
     mutations: {
         UPDATE_FORM_NAME (state, formName) {
@@ -19,6 +25,9 @@ export default createStore({
         },
         UPDATE_USERNAME (state, username) {
             state.username = username
+        },
+        UPDATE_TOKEN(state, token) {
+            state.token = token
         }
     },
     actions: {
