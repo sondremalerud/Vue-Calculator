@@ -1,13 +1,15 @@
 package no.ntnu.sondrmal.calculator.backend.model;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+//import javax.persistence.*;
 
 @Entity
 @Table(name = "EQUATIONS")
 public class Equation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "username")

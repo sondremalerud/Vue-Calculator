@@ -19,6 +19,9 @@
 <script>
 import axios from 'axios'
 import router from "../router/index.js";
+import {isLoginSuccessful} from "../utils/loginutils.js"
+import {loginRequest} from "../utils/httputils.js"
+
 
 export default {
     name: "LoginPage",
@@ -44,11 +47,11 @@ export default {
               console.log('Could not login')
               this.errorFeedback = "Could not log in, try again"
             })
+      },
 
-      }
 
 
-  }
+    }
 }
 
 </script>

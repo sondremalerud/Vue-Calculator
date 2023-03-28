@@ -1,6 +1,8 @@
 package no.ntnu.sondrmal.calculator.backend.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+//import javax.persistence.*;
 
 @Entity
 @Table(name = "USERS")
